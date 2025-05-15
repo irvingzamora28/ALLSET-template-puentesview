@@ -70,38 +70,23 @@
     ]
   },
   "gallery": {
-    "title": "Our Work",
-    "description": "Take a look at some of our recent projects and templates",
+    "title": "Puentes Internacionales",
+    "description": "Mira en tiempo real la fila en los puentes",
     "images": [
       {
-        "src": "/static/images/templates/template-main.jpg",
-        "alt": "Template Main",
-        "caption": "Modern Business Template"
+        "src": "/static/images/custom/santafe.png",
+        "alt": "Puente Santa Fe",
+        "caption": "Puente Santa Fe"
       },
       {
-        "src": "/static/images/templates/template-main2.jpg",
-        "alt": "Template Main 2",
-        "caption": "E-Commerce Solution"
+        "src": "/static/images/custom/cordova.png",
+        "alt": "Puente Zaragoza",
+        "caption": "Puente Zaragoza"
       },
       {
-        "src": "/static/images/templates/template-main3.jpg",
-        "alt": "Template Main 3",
-        "caption": "Portfolio Design"
-      },
-      {
-        "src": "/static/images/landing-demo.jpeg",
-        "alt": "Landing Demo",
-        "caption": "Landing Page Example"
-      },
-      {
-        "src": "/static/images/dashboard-demo.jpg",
-        "alt": "Dashboard Demo",
-        "caption": "Admin Dashboard"
-      },
-      {
-        "src": "/static/images/twitter-card.jpg",
-        "alt": "Social Media Card",
-        "caption": "Social Media Integration"
+        "src": "/static/images/custom/cordova.png",
+        "alt": "Puente Cordova",
+        "caption": "Puente Cordova"
       }
     ]
   },

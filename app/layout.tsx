@@ -5,6 +5,7 @@ import 'css/theme-override.css'
 
 import { Space_Grotesk } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -99,6 +100,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <AdminLayoutWrapper
               regularContent={
                 <>
+                  <VercelAnalytics />
                   <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
                   <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                     <Header />

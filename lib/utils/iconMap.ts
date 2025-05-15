@@ -28,6 +28,10 @@ import {
   FiHeadphones,
   FiMonitor,
   FiEdit,
+  FiCamera,
+  FiEye,
+  FiMail,
+  FiRefreshCw,
 } from 'react-icons/fi'
 
 export const iconMap: Record<string, React.ComponentType<SVGProps<SVGSVGElement>>> = {
@@ -57,6 +61,10 @@ export const iconMap: Record<string, React.ComponentType<SVGProps<SVGSVGElement>
   FiEdit,
   FaMagic,
   FaBars,
+  FiCamera,
+  FiEye,
+  FiMail,
+  FiRefreshCw,
 }
 
 export function getIconComponent(icon: string) {

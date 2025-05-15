@@ -1,15 +1,15 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'ALLSET Template',
-  author: 'imzodev',
-  headerTitle: 'ALLSET Template',
+  title: 'PuentesView',
+  author: 'jrzmx',
+  headerTitle: 'PuentesView',
   description:
     'AI-powered Next.js landing page generator for compelling content and SEO-optimized blog posts.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://allset-template.vercel.app',
   siteRepo: 'https://github.com',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo2.png`,
+  siteLogo: '/static/images/logo-uploaded.png',
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.jpg`,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'address@yoursite.com',

@@ -1,152 +1,93 @@
 {
   "hero": {
-    "title": "Launch Your Business with Allset Template",
-    "description": "Effortlessly create stunning landing pages and SEO-optimized blog posts using AI. Get your business online and visible in minutes.",
+    "title": "PuentesView: Cruza la frontera sin sorpresas",
+    "description": "Recibe fotos actualizadas del estado de los puentes fronterizos directamente en tu correo. ¡Planifica tu cruce de manera inteligente y ahorra tiempo!",
     "primaryCta": {
-      "text": "Start Building Now",
+      "text": "¡Recibe Alertas Gratis!",
       "link": "#cta"
     },
     "secondaryCta": {
-      "text": "View Features",
+      "text": "Más información",
       "link": "#features"
     }
   },
-  "mainFeatures": [
-    {
-      "id": 1,
-      "icon": "FaMagic",
-      "title": "AI-Powered Landing Page Generation",
-      "description": "Generate compelling landing page content in seconds using our AI dashboard. No coding required!",
-      "image": "landingDemoImage"
-    },
-    {
-      "id": 2,
-      "icon": "FiEdit",
-      "title": "SEO Blog Post Creation",
-      "description": "Boost your search ranking with AI-generated blog posts. Provide valuable content and attract more customers.",
-      "image": "landingDemoImage"
-    },
-    {
-      "id": 3,
-      "icon": "FiMonitor",
-      "title": "Easy-to-Use Dashboard",
-      "description": "Manage all your content creation from one central dashboard. Simple, intuitive, and effective.",
-      "image": "landingDemoImage"
-    }
-  ],
-  "featureTitle": "Allset Template Features",
-  "featureDescription": "Unlock the power of AI to create stunning landing pages and SEO-optimized content that drives results.",
+  "featureTitle": "¿Cómo te ayuda PuentesView?",
+  "featureDescription": "PuentesView te ofrece la información que necesitas para cruzar la frontera de manera eficiente.",
   "features": [
     {
-      "title": "AI Content Generation",
-      "description": "Let our AI write compelling copy for your landing pages and blog posts.",
-      "icon": "FiCpu"
+      "title": "Alertas cada 15 minutos",
+      "description": "Recibe actualizaciones cada 15 minutos directamente en tu correo electrónico durante una hora.",
+      "icon": "FiClock"
     },
     {
-      "title": "SEO Optimization",
-      "description": "Improve your search engine ranking with AI-powered SEO suggestions.",
-      "icon": "FiSearch"
+      "title": "Imágenes en tiempo real",
+      "description": "Visualiza las filas de los principales puentes fronterizos con las imagenes actualizadas.",
+      "icon": "FiEye"
     },
     {
-      "title": "Customizable Templates",
-      "description": "Choose from a variety of templates and customize them to match your brand.",
-      "icon": "FiLayout"
+      "title": "Fácil de usar",
+      "description": "Recibe las alertas directamente en tu correo, sin complicaciones.",
+      "icon": "FiMail"
     },
     {
-      "title": "Analytics Dashboard",
-      "description": "Track your website traffic and performance with our detailed analytics dashboard.",
-      "icon": "FiTrendingUp"
-    },
-    {
-      "title": "Content Scheduling",
-      "description": "Schedule your blog posts in advance to maintain a consistent content calendar.",
-      "icon": "FiCalendar"
-    },
-    {
-      "title": "24/7 Support",
-      "description": "Get help whenever you need it with our dedicated support team.",
-      "icon": "FiHeadphones"
+      "title": "Puentes clave a tu alcance",
+      "description": "Cobertura de los puentes Zaragoza, Santa Fe y Cordova.",
+      "icon": "FiMapPin"
     }
   ],
   "cta": {
-    "title": "Ready to Launch Your Business?",
-    "description": "Start creating your landing page and blog posts today with Allset Template.",
+    "title": "¡Deja de perder tiempo en la fila!",
+    "description": "Comienza a recibir alertas a tu correo durante una hora cada 15 minutos y descubre la diferencia.",
     "button": {
-      "text": "Get Started Now",
-      "link": "#"
+      "text": "¡Pruébalo Gratis!"
     },
     "collectEmail": true
   },
   "faqs": {
-    "title": "Frequently Asked Questions",
-    "description": "Common questions about Allset Template",
+    "title": "Preguntas Frecuentes",
+    "description": "Respuestas a las preguntas más comunes sobre PuentesView.",
     "questions": [
       {
-        "question": "What is Allset Template?",
-        "answer": "Allset Template is an AI-powered platform that helps you create landing pages and SEO-optimized blog posts quickly and easily."
+        "question": "¿Qué puentes incluye PuentesView?",
+        "answer": "Actualmente, monitoreamos los puentes Zaragoza, Santa Fe y Cordova."
       },
       {
-        "question": "Do I need coding experience to use Allset Template?",
-        "answer": "No, Allset Template is designed to be user-friendly and requires no coding experience."
+        "question": "¿Con qué frecuencia recibiré las alertas?",
+        "answer": "Recibirás una alerta con la imagen del puente cada 15 minutos durante una hora."
       },
       {
-        "question": "How does the AI content generation work?",
-        "answer": "Our AI uses advanced algorithms to generate high-quality content based on your input and preferences."
+        "question": "¿Cómo me suscribo para recibir las alertas gratuitas?",
+        "answer": "Simplemente ingresa tu correo electrónico en el formulario de la página principal y comenzaras a recibir las alertas."
       },
       {
-        "question": "Can I customize the templates?",
-        "answer": "Yes, you can customize the templates to match your brand and style."
+        "question": "¿Las imágenes son en tiempo real?",
+        "answer": "Sí, las capturas de pantalla se toman en tiempo real para ofrecerte la información más precisa."
       },
       {
-        "question": "What kind of support do you offer?",
-        "answer": "We offer 24/7 support via email, chat, and phone."
+        "question": "¿Qué pasa después de la hora de alertas gratuitas?",
+        "answer": "Puedes suscribirte a nuestro plan premium para personalizar los horarios y días de la semana en que recibes las alertas."
       }
     ]
   },
   "pricing": {
-    "title": "Pricing Plans",
-    "description": "Choose the plan that fits your needs",
+    "title": "Plan Premium",
+    "description": "Personaliza tus alertas y cruza la frontera cuando sea el mejor momento.",
     "plans": [
       {
-        "name": "Starter",
-        "price": "$19/month",
-        "description": "Perfect for launching your first business.",
-        "features": ["Unlimited Landing Pages", "5 AI Blog Posts", "Basic Analytics"],
-        "cta": {
-          "text": "Get Started",
-          "link": "#"
-        }
-      },
-      {
-        "name": "Growth",
-        "price": "$49/month",
-        "description": "Ideal for growing businesses.",
+        "name": "Premium",
+        "price": "$4.99/mes",
+        "description": "Control total sobre tus alertas.",
         "features": [
-          "All Starter features",
-          "Unlimited AI Blog Posts",
-          "Advanced Analytics",
-          "SEO Optimization Tools"
+          "Elige los días de la semana",
+          "Selecciona las horas",
+          "Recibe notificaciones de los 3 puentes",
+          "Soporte prioritario"
         ],
         "cta": {
-          "text": "Get Started",
+          "text": "Suscríbete Ahora",
           "link": "#"
         },
         "highlighted": true
-      },
-      {
-        "name": "Enterprise",
-        "price": "$99/month",
-        "description": "For established businesses seeking maximum growth.",
-        "features": [
-          "All Growth features",
-          "Dedicated Account Manager",
-          "Custom Integrations",
-          "Priority Support"
-        ],
-        "cta": {
-          "text": "Contact Sales",
-          "link": "#"
-        }
       }
     ]
   }

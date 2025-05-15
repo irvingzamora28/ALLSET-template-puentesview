@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
+import Image from 'next/image'
 
 export default function SettingsPage() {
   const [generalSettings, setGeneralSettings] = useState({
@@ -8,6 +9,26 @@ export default function SettingsPage() {
     siteDescription: 'A modern template for Next.js applications',
     adminEmail: 'admin@example.com',
   })
+
+  // Logo state
+  const [logoPreview, setLogoPreview] = useState<string>('')
+  const [logoFileName, setLogoFileName] = useState<string>('')
+  const [logoFile, setLogoFile] = useState<File | null>(null)
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0]
+    if (file) {
+      setLogoFile(file)
+      setLogoFileName(file.name)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        if (reader.result && typeof reader.result === 'string') {
+          setLogoPreview(reader.result)
+        }
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState('')
@@ -17,16 +38,27 @@ export default function SettingsPage() {
     setIsSaving(true)
     setSaveMessage('')
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const formData = new FormData()
+    if (logoFile) {
+      formData.append('logo', logoFile)
+    }
 
-    setSaveMessage('Settings saved successfully!')
+    // POST to /api/logo
+    const resp = await fetch('/api/logo', {
+      method: 'POST',
+      body: formData,
+    })
+    const data = await resp.json()
+    if (data.success) {
+      setSaveMessage('Logo updated!')
+      setLogoPreview(data.logoUrl)
+      setLogoFileName('')
+      setLogoFile(null)
+    } else {
+      setSaveMessage('Error updating logo: ' + (data.error || 'Unknown error'))
+    }
     setIsSaving(false)
-
-    // Clear success message after 3 seconds
-    setTimeout(() => {
-      setSaveMessage('')
-    }, 3000)
+    setTimeout(() => setSaveMessage(''), 3000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,6 +77,41 @@ export default function SettingsPage() {
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <h2 className="mb-4 text-xl font-semibold">General Settings</h2>
+
+            {/* Logo Settings */}
+            <div className="mb-4">
+              <label
+                className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="siteLogo"
+              >
+                Logo
+              </label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoChange}
+                  id="siteLogo"
+                  className="file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 block text-sm text-gray-500 file:mr-4 file:rounded-lg file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold"
+                />
+                <span className="text-xs text-gray-400">{logoFileName}</span>
+              </div>
+
+              {logoPreview && (
+                <div className="mt-4">
+                  <span className="mb-1 block text-xs text-gray-500 dark:text-gray-400">
+                    Preview:
+                  </span>
+                  <Image
+                    src={logoPreview}
+                    alt="Logo Preview"
+                    width={64}
+                    height={64}
+                    className="h-16 w-auto rounded shadow"
+                  />
+                </div>
+              )}
+            </div>
 
             <div className="mb-4">
               <label

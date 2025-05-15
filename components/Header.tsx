@@ -1,6 +1,8 @@
+'use client'
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo2.png'
+
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
@@ -24,12 +26,29 @@ const Header = () => {
         (!landingContent.features && link.title === 'Features')
       )
   )
+  // Use logo from siteMetadata (always string)
+  let logoSrc: string
+  if (typeof siteMetadata.siteLogo === 'string') {
+    logoSrc = siteMetadata.siteLogo
+  } else if (typeof Logo === 'string') {
+    logoSrc = Logo
+  } else if (Logo && typeof Logo === 'object' && 'src' in Logo) {
+    logoSrc = Logo.src as string
+  } else {
+    logoSrc = '/static/images/logo2.png'
+  }
+
   return (
     <header className={headerClass}>
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between">
           <div className="mr-3">
-            <Image src={Logo} alt="logo" width={32} height={32} />
+            {typeof logoSrc === 'string' && logoSrc.startsWith('http') ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logoSrc} alt="logo" width={64} height={64} style={{ borderRadius: 4 }} />
+            ) : (
+              <Image src={logoSrc} alt="logo" width={64} height={64} />
+            )}
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
             <div className="hidden h-6 text-2xl font-semibold sm:block">

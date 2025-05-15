@@ -7,6 +7,7 @@ import Image from 'next/image'
 import dataLandingContent from '@/data/landingContent.json'
 import type { LandingContent } from './allset/landing-content/types' // adjust path if needed
 import Link from 'next/link'
+import GallerySection from '@/components/GallerySection'
 
 import { useEmailSubscription } from '@/lib/useEmailSubscription'
 import FeatureIcon from '@/components/FeatureIcon'
@@ -450,6 +451,9 @@ const Main3 = () => {
         {landingContent.mainFeatures?.length > 0 && <FeaturesSection />}
         {landingContent.features?.length > 0 && <SecondaryFeaturesSection />}
         {landingContent.cta && <CallToActionSection />}
+        {landingContent.gallery && (
+          <GallerySection gallery={landingContent.gallery} variant="dark" />
+        )}
         {landingContent.testimonials && <TestimonialsSection />}
         {landingContent.pricing && <PricingSection />}
         {landingContent.faqs?.questions?.length > 0 && <FaqSection />}

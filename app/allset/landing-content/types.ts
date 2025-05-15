@@ -66,6 +66,18 @@ export interface Testimonial {
   title?: string
 }
 
+export interface GalleryImage {
+  src: string
+  alt: string
+  caption: string
+}
+
+export interface GallerySection {
+  title: string
+  description: string
+  images: GalleryImage[]
+}
+
 export interface LandingContent {
   hero: HeroSection
   mainFeatures: MainFeature[]
@@ -73,6 +85,7 @@ export interface LandingContent {
   featureDescription: string
   features: Feature[]
   cta: CtaSection
+  gallery?: GallerySection
   faqs: FaqsSection
   pricing?: PricingSection
   testimonials?: Testimonial[]

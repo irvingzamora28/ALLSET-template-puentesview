@@ -9,7 +9,7 @@ import dataLandingContent from '@/data/landingContent.json'
 import Link from 'next/link'
 import { HiCheckCircle } from 'react-icons/hi2'
 import FeatureIcon from '@/components/FeatureIcon'
-import { LandingContent } from './allset/landing-content/types'
+import { LandingContent, GalleryImage } from './allset/landing-content/types'
 
 const landingContent = dataLandingContent as LandingContent
 
@@ -405,6 +405,132 @@ const PricingSection = ({ pricing }) => {
   )
 }
 
+const GallerySection = ({ gallery }) => {
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+
+  const openModal = (image: GalleryImage) => {
+    setSelectedImage(image)
+    document.body.style.overflow = 'hidden' // Prevent scrolling when modal is open
+  }
+
+  const closeModal = () => {
+    setSelectedImage(null)
+    document.body.style.overflow = 'auto' // Re-enable scrolling
+  }
+
+  // Close modal when Escape key is pressed
+  React.useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    if (selectedImage) {
+      window.addEventListener('keydown', handleEscKey)
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscKey)
+    }
+  }, [selectedImage])
+
+  return (
+    <section
+      id="gallery"
+      aria-labelledby="gallery-title"
+      className="border-t border-slate-200 py-20 sm:py-32 dark:border-slate-800"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:max-w-none">
+          <h2
+            id="gallery-title"
+            className="text-3xl font-medium tracking-tight text-slate-900 dark:text-slate-200"
+          >
+            {gallery.title}
+          </h2>
+          <p className="mt-2 text-lg text-slate-600 dark:text-slate-300">{gallery.description}</p>
+        </div>
+
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
+          {gallery.images.map((image, index) => (
+            <div
+              key={index}
+              className="group relative cursor-pointer overflow-hidden rounded-lg bg-slate-100 shadow-md transition-all hover:shadow-lg dark:bg-slate-800"
+              onClick={() => openModal(image)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  openModal(image)
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`View ${image.alt} in large mode`}
+            >
+              <div className="aspect-[4/3] w-full overflow-hidden">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={600}
+                  height={450}
+                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-4">
+                <p className="text-center font-medium text-slate-900 dark:text-slate-200">
+                  {image.caption}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Image Modal */}
+      {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
+      {selectedImage && (
+        <dialog
+          open
+          className="bg-opacity-80 fixed inset-0 z-50 flex items-center justify-center bg-black p-4"
+          onClick={closeModal}
+          onKeyDown={(e) => e.key === 'Escape' && closeModal()}
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          {}
+          <article
+            className="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg bg-white p-1 dark:bg-slate-800"
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-black shadow-md hover:bg-gray-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600"
+              onClick={closeModal}
+              aria-label="Close modal"
+            >
+              &times;
+            </button>
+            <div className="relative">
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                width={1200}
+                height={900}
+                className="max-h-[80vh] w-auto object-contain"
+              />
+              <div className="p-4 text-center">
+                <p className="text-lg font-medium text-slate-900 dark:text-slate-200">
+                  {selectedImage.caption}
+                </p>
+              </div>
+            </div>
+          </article>
+        </dialog>
+      )}
+    </section>
+  )
+}
+
 const FaqSection = ({ faqs }) => {
   return (
     <section
@@ -441,8 +567,17 @@ const FaqSection = ({ faqs }) => {
 }
 
 const Main2 = () => {
-  const { hero, mainFeatures, featureTitle, featureDescription, features, cta, pricing, faqs } =
-    landingContent
+  const {
+    hero,
+    mainFeatures,
+    featureTitle,
+    featureDescription,
+    features,
+    cta,
+    gallery,
+    pricing,
+    faqs,
+  } = landingContent
 
   return (
     <>
@@ -457,6 +592,7 @@ const Main2 = () => {
           />
         )}
         {landingContent.cta && <CTASection cta={cta} />}
+        {landingContent.gallery && <GallerySection gallery={gallery} />}
         {landingContent.pricing && <PricingSection pricing={pricing} />}
         {landingContent.faqs && <FaqSection faqs={faqs} />}
       </main>

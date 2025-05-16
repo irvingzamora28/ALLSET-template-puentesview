@@ -47,4 +47,4 @@ yarn-error.log*
 .contentlayer
 
 # database
-# database/allset.sqlite
+database/allset.sqlite

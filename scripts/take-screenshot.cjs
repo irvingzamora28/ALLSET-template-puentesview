@@ -1,6 +1,6 @@
 // scripts/take-screenshot.cjs
-const { Client } = require('@modelcontextprotocol/sdk/client/index.cjs');
-const { StdioClientTransport } = require('@modelcontextprotocol/sdk/client/stdio.cjs');
+const { Client } = require('@modelcontextprotocol/sdk');
+const { StdioClientTransport } = require('@modelcontextprotocol/sdk/server/stdio');
 const { z } = require('zod'); // MCP SDK uses zod internally, useful for validation
 
 const UrlSchema = z.string().url();

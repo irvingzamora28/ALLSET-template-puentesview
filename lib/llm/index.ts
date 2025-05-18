@@ -14,6 +14,7 @@ Generate a complete JSON object that follows this structure:
 {
   "hero": {
     "title": "Main headline that captures attention",
+    "image": "/placeholder.jpg",
     "description": "Compelling subheading that explains the value proposition",
     "primaryCta": {
       "text": "Primary call-to-action button text",
@@ -24,70 +25,83 @@ Generate a complete JSON object that follows this structure:
       "link": "#"
     }
   },
+  "services": {
+    "title": "Services section title",
+    "description": "Services section description",
+    "items": [
+    {
+      "title": "Service 1 title",
+      "description": "Service 1 description",
+      "icon": "FaIndustry",
+      "image": "/placeholder.jpg"
+    },
+    {
+      "title": "Service 2 title",
+      "description": "Service 2 description",
+      "icon": "FaTools",
+      "image": "/placeholder.jpg"
+    }
+  ] },
+  "projects": {
+    "title": "Projects section title",
+    "description": "Projects section description",
+    "items": [
+      {
+        "title": "Project 1 title",
+        "description": "Project 1 description",
+        "image": "/placeholder.jpg",
+        "category": "Category",
+        "completionDate": "Month Year"
+      }
+    ]
+  },
   "mainFeatures": [
     {
       "id": 1,
-      "icon": "FiUsers",
+      "icon": "FaBolt",
       "title": "Feature 1 title",
       "description": "Feature 1 description",
       "image": "/placeholder.jpg"
     },
     {
       "id": 2,
-      "icon": "FiLayers",
+      "icon": "FaShieldAlt",
       "title": "Feature 2 title",
       "description": "Feature 2 description",
       "image": "/placeholder.jpg"
     },
     {
       "id": 3,
-      "icon": "FiSmartphone",
+      "icon": "FaClock",
       "title": "Feature 3 title",
       "description": "Feature 3 description",
       "image": "/placeholder.jpg"
     }
   ],
-  "featureTitle": "Features section title",
-  "featureDescription": "Features section description",
-  "features": [
-    {
-      "title": "Feature 1 title",
-      "description": "Feature 1 description",
-      "icon": "FiUsers"
-    },
-    {
-      "title": "Feature 2 title",
-      "description": "Feature 2 description",
-      "icon": "FiSmartphone"
-    },
-    {
-      "title": "Feature 3 title",
-      "description": "Feature 3 description",
-      "icon": "FiLock"
-    },
-    {
-      "title": "Feature 4 title",
-      "description": "Feature 4 description",
-      "icon": "FiTrendingUp"
-    },
-    {
-      "title": "Feature 5 title",
-      "description": "Feature 5 description",
-      "icon": "FiList"
-    },
-    {
-      "title": "Feature 6 title",
-      "description": "Feature 6 description",
-      "icon": "FiClock"
-    }
-  ],
+  "features": {
+    "title": "Features section title",
+    "description": "Features section description",
+    "items": [
+      {
+        "title": "Feature 1 title",
+        "description": "Feature 1 description",
+        "icon": "FiUsers"
+      },
+      {
+        "title": "Feature 2 title",
+        "description": "Feature 2 description",
+        "icon": "FiSmartphone"
+      }
+    ]
+  },
   "cta": {
     "title": "Call to action section title",
     "description": "Call to action section description",
     "button": {
       "text": "Call to action button text",
       "link": "#"
-    }
+    },
+    "collectEmail": true
   },
   "faqs": {
     "title": "Frequently Asked Questions",
@@ -112,6 +126,17 @@ Generate a complete JSON object that follows this structure:
       {
         "question": "Question 5",
         "answer": "Answer 5"
+      }
+    ]
+  },
+  "gallery": {
+    "title": "Gallery section title",
+    "description": "Gallery section description",
+    "images": [
+      {
+        "src": "/placeholder.jpg",
+        "alt": "Image alt text",
+        "caption": "Image caption"
       }
     ]
   },
@@ -163,6 +188,34 @@ Generate a complete JSON object that follows this structure:
           "text": "Contact Sales",
           "link": "#"
         }
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact section title",
+    "description": "Contact section description",
+    "fields": [
+      { "name": "name", "label": "Name", "type": "text", "required": true },
+      { "name": "email", "label": "Email", "type": "email", "required": true }
+    ],
+    "submitLabel": "Submit button text",
+    "successMessage": "Success message after form submission",
+    "contactInfo": {
+      "title": "Contact Information",
+      "phone": { "label": "Phone", "number": "", "hours": "" },
+      "email": { "label": "Email", "address": "", "responseTime": "" },
+      "location": { "label": "Location", "address": ["Address line 1", "Address line 2"] }
+    }
+  },
+  "testimonials": {
+    "title": "Testimonials section title",
+    "description": "Testimonials section description",
+    "image": "/placeholder.jpg",
+    "testimonials": [
+      {
+        "name": "Client Name",
+        "title": "Client Title",
+        "quote": "Client testimonial quote."
       }
     ]
   }

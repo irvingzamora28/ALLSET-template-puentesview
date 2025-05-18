@@ -8,8 +8,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const stmt = db.prepare('INSERT INTO emails (email) VALUES (?)')
-    stmt.run(email)
+    await db.insertEmail(email)
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (err: unknown) {
     console.error('Error subscribing email:', err)

@@ -1,13 +1,15 @@
-import Database from 'better-sqlite3'
-import path from 'path'
-import fs from 'fs'
+import { IDatabaseProvider } from './dbProvider'
+import { SQLiteProvider } from './providers/sqliteProvider'
+import { SupabaseProvider } from './providers/supabaseProvider'
+import { SQLITE_DB_PATH, SQLITE_SCHEMA_FILE } from './constants'
 
-const dbPath = path.resolve(process.cwd(), 'database/allset.sqlite')
-const schemaPath = path.resolve(process.cwd(), 'database/schema.sql')
+const provider = process.env.DB_PROVIDER || 'sqlite'
 
-// Run schema if DB is new or on every startup (idempotent)
-const schema = fs.readFileSync(schemaPath, 'utf-8')
-const db = new Database(dbPath)
-db.exec(schema)
+let db: IDatabaseProvider
+if (provider === 'supabase') {
+  db = new SupabaseProvider()
+} else {
+  db = new SQLiteProvider(SQLITE_DB_PATH, SQLITE_SCHEMA_FILE)
+}
 
 export default db

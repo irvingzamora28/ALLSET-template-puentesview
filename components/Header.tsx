@@ -16,14 +16,13 @@ const Header = () => {
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
-  console.log('About landingcontent')
-  console.log(landingContent)
   // If the pricing section is NOT in the landing content, remove it from the header
   const navLinks = headerNavLinks.filter(
     (link) =>
       !(
         (!landingContent.pricing && link.title === 'Pricing') ||
-        (!landingContent.features && link.title === 'Features')
+        (!landingContent.features && link.title === 'Features') ||
+        (!landingContent.contact && link.title === 'Contact')
       )
   )
   // Use logo from siteMetadata (always string)

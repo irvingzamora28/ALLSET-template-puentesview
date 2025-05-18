@@ -193,7 +193,7 @@ const HeroSection = ({ hero }) => {
   )
 }
 
-const SecondaryFeaturesSection = ({ featureTitle, featureDescription, features }) => {
+const SecondaryFeaturesSection = ({ features }) => {
   return (
     <section
       id="secondary-features"
@@ -203,12 +203,12 @@ const SecondaryFeaturesSection = ({ featureTitle, featureDescription, features }
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
           <h2 className="text-3xl font-medium tracking-tight text-slate-900 dark:text-slate-200">
-            {featureTitle}
+            {features.title}
           </h2>
-          <p className="mt-2 text-lg text-slate-600 dark:text-slate-300">{featureDescription}</p>
+          <p className="mt-2 text-lg text-slate-600 dark:text-slate-300">{features.description}</p>
         </div>
         <ul className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 text-sm sm:mt-20 sm:grid-cols-2 md:gap-y-10 lg:max-w-none lg:grid-cols-3">
-          {features.map((feature) => {
+          {features.items.map((feature) => {
             return (
               <li key={feature.title} className="rounded-2xl border border-gray-200 p-8">
                 <FeatureIcon icon={feature.icon} />
@@ -566,35 +566,22 @@ const FaqSection = ({ faqs }) => {
   )
 }
 
+import Main2ContactSection from './Main2ContactSection'
+
 const Main2 = () => {
-  const {
-    hero,
-    mainFeatures,
-    featureTitle,
-    featureDescription,
-    features,
-    cta,
-    gallery,
-    pricing,
-    faqs,
-  } = landingContent
+  const { hero, mainFeatures, features, cta, gallery, pricing, faqs, contact } = landingContent
 
   return (
     <>
       <main className="flex-auto">
-        {landingContent.hero && <HeroSection hero={hero} />}
-        {landingContent.mainFeatures && <FeaturesSection mainFeatures={mainFeatures} />}
-        {landingContent.featureTitle && (
-          <SecondaryFeaturesSection
-            featureTitle={featureTitle}
-            featureDescription={featureDescription}
-            features={features}
-          />
-        )}
-        {landingContent.cta && <CTASection cta={cta} />}
-        {landingContent.gallery && <GallerySection gallery={gallery} />}
-        {landingContent.pricing && <PricingSection pricing={pricing} />}
-        {landingContent.faqs && <FaqSection faqs={faqs} />}
+        {hero && <HeroSection hero={hero} />}
+        {mainFeatures && <FeaturesSection mainFeatures={mainFeatures} />}
+        {features && <SecondaryFeaturesSection features={features} />}
+        {cta && <CTASection cta={cta} />}
+        {gallery && <GallerySection gallery={gallery} />}
+        {pricing && <PricingSection pricing={pricing} />}
+        {faqs && <FaqSection faqs={faqs} />}
+        {contact && <Main2ContactSection contact={contact} />}
       </main>
     </>
   )

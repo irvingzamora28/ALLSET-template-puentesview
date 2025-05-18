@@ -129,7 +129,10 @@ const FeaturesSection = () => {
 }
 
 const SecondaryFeaturesSection = () => {
-  const { featureTitle, featureDescription, features } = landingContent
+  const { features } = landingContent
+
+  if (!features || features.items.length === 0) return null
+
   return (
     <section
       id="secondary-features"
@@ -139,14 +142,14 @@ const SecondaryFeaturesSection = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl md:text-center">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            {featureTitle}
+            {features.title}
           </h2>
           <p className="mt-4 text-lg tracking-tight text-slate-700 dark:text-slate-200">
-            {featureDescription}
+            {features.description}
           </p>
         </div>
         <div className="-mx-4 mt-20 flex flex-col gap-y-10 overflow-hidden px-4 sm:-mx-6 sm:px-6 lg:hidden">
-          {features.map((feature) => {
+          {features.items.map((feature) => {
             return (
               <div key={feature.title}>
                 <div className="mx-auto max-w-2xl">
@@ -171,7 +174,7 @@ const SecondaryFeaturesSection = () => {
           role="tablist"
           aria-orientation="horizontal"
         >
-          {features.map((feature) => {
+          {features.items.map((feature) => {
             return (
               <div key={feature.title}>
                 <div className="relative my-6 opacity-90 hover:opacity-100">
@@ -262,8 +265,8 @@ const CallToActionSection = () => {
 }
 
 const TestimonialsSection = () => {
-  const testimonials = landingContent.testimonials ?? []
-  if (!testimonials.length) return null
+  const testimonials = landingContent.testimonials
+  if (!testimonials) return null
 
   return (
     <section
@@ -274,15 +277,14 @@ const TestimonialsSection = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl md:text-center">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            Loved by businesses worldwide.
+            {testimonials.title}
           </h2>
           <p className="mt-4 text-lg tracking-tight text-slate-700 dark:text-white">
-            Our software is so simple that people can’t help but fall in love with it. Simplicity is
-            easy when you just skip tons of mission-critical features.
+            {testimonials.description}
           </p>
         </div>
         <ul className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.testimonials.map((testimonial, index) => (
             <li key={index} className="rounded-2xl dark:bg-gray-800">
               <ul className="flex flex-col gap-y-6 sm:gap-y-8">
                 <li>
@@ -443,13 +445,15 @@ const PricingSection = () => {
   )
 }
 
+import Main3ContactSection from './Main3ContactSection'
+
 const Main3 = () => {
   return (
     <div>
       <main>
         {landingContent.hero && <HeroSection />}
         {landingContent.mainFeatures?.length > 0 && <FeaturesSection />}
-        {landingContent.features?.length > 0 && <SecondaryFeaturesSection />}
+        {landingContent.features?.items?.length > 0 && <SecondaryFeaturesSection />}
         {landingContent.cta && <CallToActionSection />}
         {landingContent.gallery && (
           <GallerySection gallery={landingContent.gallery} variant="dark" />
@@ -457,6 +461,7 @@ const Main3 = () => {
         {landingContent.testimonials && <TestimonialsSection />}
         {landingContent.pricing && <PricingSection />}
         {landingContent.faqs?.questions?.length > 0 && <FaqSection />}
+        {landingContent.contact && <Main3ContactSection contact={landingContent.contact} />}
       </main>
     </div>
   )

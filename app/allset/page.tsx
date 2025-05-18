@@ -6,7 +6,7 @@ import { FiMail } from 'react-icons/fi'
 
 export default async function AdminDashboard() {
   const postsCount = allCoreContent(sortPosts(allBlogs)).length
-  const subscriptionCount = getSubscriptionCount()
+  const subscriptionCount = await getSubscriptionCount()
 
   return (
     <>

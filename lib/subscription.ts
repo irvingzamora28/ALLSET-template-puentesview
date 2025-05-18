@@ -1,10 +1,17 @@
-import db from '@/lib/db'
+import db from './db'
 
-export function getSubscriptionCount(): number {
+export async function getSubscriptionCount(): Promise<number> {
   try {
-    const row = db.prepare('SELECT COUNT(*) as count FROM emails').get()
-    return typeof row.count === 'number' ? row.count : 0
+    return await db.getSubscriptionCount()
   } catch {
     return 0
   }
+}
+
+export async function getAllEmails() {
+  return db.getAllEmails()
+}
+
+export async function insertEmail(email: string) {
+  return db.insertEmail(email)
 }

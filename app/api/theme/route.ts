@@ -171,6 +171,27 @@ async function saveThemeSettings(theme: ThemeSettings) {
 .hover${String.fromCharCode(92)}:bg-primary-500:hover, .hover${String.fromCharCode(92)}:bg-primary-500:hover * { background-color: ${theme.primaryColor} !important; }
 .hover${String.fromCharCode(92)}:text-primary-500:hover, .hover${String.fromCharCode(92)}:text-primary-500:hover * { color: ${theme.primaryColor} !important; }
 .hover${String.fromCharCode(92)}:border-primary-500:hover, .hover${String.fromCharCode(92)}:border-primary-500:hover * { border-color: ${theme.primaryColor} !important; }
+
+/* Ring variants */
+.ring-primary-50, .ring-primary-50 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.95)} !important; }
+.ring-primary-100, .ring-primary-100 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.9)} !important; }
+.ring-primary-200, .ring-primary-200 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.8)} !important; }
+.ring-primary-300, .ring-primary-300 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.7)} !important; }
+.ring-primary-400, .ring-primary-400 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.6)} !important; }
+.ring-primary-500, .ring-primary-500 * { --tw-ring-color: ${theme.primaryColor} !important; }
+.ring-primary-600, .ring-primary-600 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.4)} !important; }
+.ring-primary-700, .ring-primary-700 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.3)} !important; }
+.ring-primary-800, .ring-primary-800 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.2)} !important; }
+.ring-primary-900, .ring-primary-900 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.1)} !important; }
+.ring-primary-950, .ring-primary-950 * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.05)} !important; }
+
+/* Hover ring variants */
+.hover${String.fromCharCode(92)}:ring-primary-500:hover, .hover${String.fromCharCode(92)}:ring-primary-500:hover * { --tw-ring-color: ${theme.primaryColor} !important; }
+.hover${String.fromCharCode(92)}:ring-primary-600:hover, .hover${String.fromCharCode(92)}:ring-primary-600:hover * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.4)} !important; }
+.hover${String.fromCharCode(92)}:ring-primary-700:hover, .hover${String.fromCharCode(92)}:ring-primary-700:hover * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.3)} !important; }
+.hover${String.fromCharCode(92)}:ring-primary-800:hover, .hover${String.fromCharCode(92)}:ring-primary-800:hover * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.2)} !important; }
+.hover${String.fromCharCode(92)}:ring-primary-900:hover, .hover${String.fromCharCode(92)}:ring-primary-900:hover * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.1)} !important; }
+.hover${String.fromCharCode(92)}:ring-primary-950:hover, .hover${String.fromCharCode(92)}:ring-primary-950:hover * { --tw-ring-color: ${adjustColor(theme.primaryColor, 0.05)} !important; }
 `
 
     // Save to CSS file

@@ -35,7 +35,11 @@ export async function POST(req: NextRequest) {
   }
 
   const { url, name } = validatedData
-  const scriptPath = path.join(process.cwd(), '.vercel', 'output/static/screenshot-bundle.mjs')
+
+  // Always use the script from the scripts directory
+  const scriptPath = path.join(process.cwd(), 'scripts/take-screenshot.mjs')
+
+  // Always use static/images/custom for saving screenshots
   const outputDir = path.join(process.cwd(), 'static', 'images', 'custom')
 
   try {
@@ -56,9 +60,7 @@ export async function POST(req: NextRequest) {
 
     console.log(`API: Attempting to run script: bun run ${scriptPath} ${url}`)
 
-    // Make the script executable and handle the screenshot process
-    return fs
-      .chmod(scriptPath, '755')
+    return Promise.resolve()
       .then(() => {
         return new Promise<NextResponse>((resolve) => {
           const child = spawn('bun', [scriptPath, url], {

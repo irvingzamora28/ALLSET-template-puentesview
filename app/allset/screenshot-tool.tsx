@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { RiCameraLine, RiRefreshLine } from 'react-icons/ri'
 import { takeScreenshot } from '@/lib/screenshot'
 import Image from 'next/image'
@@ -10,6 +10,7 @@ interface ScreenshotTarget {
   url: string
 }
 
+// Define screenshot targets in one place
 const SCREENSHOT_TARGETS: ScreenshotTarget[] = [
   { name: 'cordova-sur', url: 'https://www.youtube.com/watch?v=CZM5TpXLzE8' },
   { name: 'cordova-norte', url: 'https://www.youtube.com/watch?v=mp3RS0y77tY' },
@@ -24,7 +25,7 @@ export default function ScreenshotTool() {
     Record<string, { url: string; imageUrl: string | undefined }>
   >({})
 
-  const handleTakeScreenshot = async (target: ScreenshotTarget) => {
+  const handleTakeScreenshot = useCallback(async (target: ScreenshotTarget) => {
     setIsLoading(true)
     setError(null)
 
@@ -51,13 +52,32 @@ export default function ScreenshotTool() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, []) // No dependencies needed as it only uses setState and takeScreenshot (which is stable)
 
-  const handleTakeAllScreenshots = async () => {
+  const handleTakeAllScreenshots = useCallback(async () => {
     for (const target of SCREENSHOT_TARGETS) {
       await handleTakeScreenshot(target)
     }
-  }
+  }, [handleTakeScreenshot])
+
+  // Auto-refresh screenshots every 3 minutes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Take initial screenshots
+      handleTakeAllScreenshots()
+
+      // Set up interval for auto-refresh
+      const intervalId = setInterval(
+        () => {
+          handleTakeAllScreenshots()
+        },
+        3 * 60 * 1000
+      ) // 3 minutes
+
+      // Clean up interval on component unmount
+      return () => clearInterval(intervalId)
+    }
+  }, [handleTakeAllScreenshots])
 
   return (
     <div className="mt-8 rounded-lg bg-slate-100 p-6 shadow-md dark:bg-gray-800">
@@ -73,7 +93,11 @@ export default function ScreenshotTool() {
                 : 'bg-primary-600 hover:bg-primary-700'
             } focus:ring-primary-500 focus:ring-2 focus:ring-offset-2 focus:outline-none`}
           >
-            <RiCameraLine className="mr-2" />
+            {isLoading ? (
+              <RiRefreshLine className="mr-2 animate-spin" />
+            ) : (
+              <RiCameraLine className="mr-2" />
+            )}
             {isLoading ? 'Taking Screenshots...' : 'Take All Screenshots'}
           </button>
         </div>

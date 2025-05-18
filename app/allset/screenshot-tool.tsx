@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { RiCameraLine, RiRefreshLine } from 'react-icons/ri'
 import { takeScreenshot } from '@/lib/screenshot'
+import Image from 'next/image'
 
 interface ScreenshotTarget {
   name: string
@@ -110,8 +111,8 @@ export default function ScreenshotTool() {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <img
-                    src={screenshots[target.name].imageUrl}
+                  <Image
+                    src={screenshots[target.name].imageUrl!}
                     alt={`Screenshot of ${target.url}`}
                     className="h-auto max-w-full rounded border shadow-sm"
                     onError={(e) => {

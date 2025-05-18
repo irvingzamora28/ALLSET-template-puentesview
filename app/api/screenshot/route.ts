@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { spawn } from 'child_process'
 import path from 'path'
 import { z } from 'zod'
+import { promises as fs } from 'fs'
 import { writeFile, mkdir } from 'fs/promises'
 
 type ScreenshotResult = {
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { url, name } = validatedData
-  const scriptPath = path.join(process.cwd(), 'scripts', 'take-screenshot.cjs')
+  const scriptPath = path.join(process.cwd(), '.vercel', 'output/static/screenshot-bundle.mjs')
   const outputDir = path.join(process.cwd(), 'static', 'images', 'custom')
 
   try {
@@ -53,94 +54,106 @@ export async function POST(req: NextRequest) {
     }
     const outputPath = path.join(outputDir, filename)
 
-    console.log(`API: Attempting to run script: node ${scriptPath} ${url}`)
+    console.log(`API: Attempting to run script: bun run ${scriptPath} ${url}`)
 
-    return new Promise<NextResponse>((resolve) => {
-      const command = 'node'
-      const args = [scriptPath, url]
+    // Make the script executable and handle the screenshot process
+    return fs
+      .chmod(scriptPath, '755')
+      .then(() => {
+        return new Promise<NextResponse>((resolve) => {
+          const child = spawn('bun', [scriptPath, url], {
+            stdio: ['pipe', 'pipe', 'pipe'],
+            env: process.env,
+          })
 
-      let stdoutData = ''
-      let stderrData = ''
-      let processError: Error | null = null
+          let stdoutData = ''
+          let stderrData = ''
+          let processError: Error | null = null
 
-      const child = spawn(command, args)
+          child.stdout.on('data', (data) => {
+            stdoutData += data.toString()
+          })
 
-      child.stdout.on('data', (data) => {
-        stdoutData += data.toString()
+          child.stderr.on('data', (data) => {
+            const errLine = data.toString().trim()
+            if (errLine) {
+              console.error(`MCP Script STDERR: ${errLine}`)
+              stderrData += errLine + '\n'
+            }
+          })
+
+          child.on('error', (error) => {
+            console.error(`API: Failed to spawn child process: ${error.message}`)
+            processError = error
+          })
+
+          child.on('close', async (code) => {
+            console.log(`API: Child process exited with code ${code}`)
+
+            if (processError) {
+              return resolve(
+                NextResponse.json(
+                  {
+                    success: false,
+                    error: `Failed to start screenshot process: ${processError.message}`,
+                  },
+                  { status: 500 }
+                )
+              )
+            }
+
+            if (code !== 0) {
+              return resolve(
+                NextResponse.json(
+                  {
+                    success: false,
+                    error: `Screenshot script failed (code ${code}). Check server logs.`,
+                  },
+                  { status: 500 }
+                )
+              )
+            }
+
+            if (!stdoutData) {
+              return resolve(
+                NextResponse.json(
+                  { success: false, error: 'Screenshot script succeeded but returned no data.' },
+                  { status: 500 }
+                )
+              )
+            }
+
+            try {
+              // Save the screenshot to the filesystem
+              await writeFile(outputPath, stdoutData, 'base64')
+              const publicUrl = `/static/images/custom/${path.basename(outputPath)}`
+
+              resolve(
+                NextResponse.json({
+                  success: true,
+                  imageUrl: publicUrl,
+                  message: 'Screenshot saved successfully',
+                })
+              )
+            } catch (error) {
+              console.error('Error saving screenshot:', error)
+              resolve(
+                NextResponse.json(
+                  { success: false, error: 'Failed to save screenshot' },
+                  { status: 500 }
+                )
+              )
+            }
+          })
+        })
       })
-
-      child.stderr.on('data', (data) => {
-        const errLine = data.toString().trim()
-        if (errLine) {
-          console.error(`MCP Script STDERR: ${errLine}`)
-          stderrData += errLine + '\n'
-        }
+      .catch((error) => {
+        console.error('API Error:', error)
+        return NextResponse.json(
+          { success: false, error: 'Internal server error' },
+          { status: 500 }
+        )
       })
-
-      child.on('error', (error) => {
-        console.error(`API: Failed to spawn child process: ${error.message}`)
-        processError = error
-      })
-
-      child.on('close', async (code) => {
-        console.log(`API: Child process exited with code ${code}`)
-
-        if (processError) {
-          return resolve(
-            NextResponse.json(
-              {
-                success: false,
-                error: `Failed to start screenshot process: ${processError.message}`,
-              },
-              { status: 500 }
-            )
-          )
-        }
-
-        if (code !== 0) {
-          return resolve(
-            NextResponse.json(
-              {
-                success: false,
-                error: `Screenshot script failed (code ${code}). Check server logs.`,
-              },
-              { status: 500 }
-            )
-          )
-        }
-
-        if (!stdoutData) {
-          return resolve(
-            NextResponse.json(
-              { success: false, error: 'Screenshot script succeeded but returned no data.' },
-              { status: 500 }
-            )
-          )
-        }
-
-        try {
-          // Save the screenshot to the filesystem
-          await writeFile(outputPath, stdoutData, 'base64')
-          const publicUrl = `/static/images/custom/${path.basename(outputPath)}`
-
-          resolve(
-            NextResponse.json({
-              success: true,
-              imageUrl: publicUrl,
-              message: 'Screenshot saved successfully',
-            })
-          )
-        } catch (error) {
-          console.error('Error saving screenshot:', error)
-          resolve(
-            NextResponse.json(
-              { success: false, error: 'Failed to save screenshot' },
-              { status: 500 }
-            )
-          )
-        }
-      })
-    })
   } catch (error) {
     console.error('API Error:', error)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })

@@ -1,8 +1,31 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const { withContentlayer } = require('next-contentlayer2')
+const { copyFileSync, mkdirSync, existsSync } = require('fs')
+const { join } = require('path')
+
+// Disable ESLint for this file since we need to use require
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+
+// Ensure the output directory exists
+const outputDir = join(process.cwd(), '.vercel/output/static')
+if (!existsSync(outputDir)) {
+  mkdirSync(outputDir, { recursive: true })
+}
+
+// Copy the bundled script to the output directory
+try {
+  const source = join(process.cwd(), 'scripts/take-screenshot.mjs')
+  const dest = join(outputDir, 'screenshot-bundle.mjs')
+  if (existsSync(source)) {
+    copyFileSync(source, dest)
+  }
+} catch (error) {
+  console.error('Error copying screenshot script:', error)
+}
 
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
@@ -58,9 +81,7 @@ const output = process.env.EXPORT ? 'export' : undefined
 const basePath = process.env.BASE_PATH || undefined
 const unoptimized = process.env.UNOPTIMIZED ? true : undefined
 
-/**
- * @type {import('next/dist/next-server/server/config').NextConfig}
- **/
+/** @type {import('next').NextConfig} */
 module.exports = () => {
   const plugins = [withContentlayer, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {

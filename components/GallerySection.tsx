@@ -113,56 +113,66 @@ const GallerySection: React.FC<GallerySectionProps> = ({ gallery, variant = 'lig
 
       {/* Image Modal */}
       {selectedImage && (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <dialog
-          open
-          className="bg-opacity-80 fixed inset-0 z-50 flex items-center justify-center bg-black p-4"
-          onClick={closeModal}
-          onKeyDown={(e) => e.key === 'Escape' && closeModal()}
-          aria-modal="true"
-          aria-labelledby="modal-title"
-          tabIndex={-1}
-        >
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-          <article
-            className={`relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg p-1 ${
+        <div className="fixed inset-0 z-50 flex h-full w-full items-center justify-center p-0 sm:p-4">
+          {/* Backdrop - clickable area */}
+          <button
+            type="button"
+            className="fixed inset-0 h-full w-full cursor-default bg-black/90"
+            onClick={closeModal}
+            aria-label="Close modal"
+          />
+
+          {/* Modal content */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            className={`relative flex h-full w-full flex-col ${
               isDark ? 'bg-slate-800' : 'bg-white dark:bg-slate-800'
-            }`}
-            onClick={(e) => e.stopPropagation()}
-            onKeyDown={(e) => e.stopPropagation()}
-            role="document"
+            } sm:max-h-[90vh] sm:max-w-[90vw] sm:rounded-lg`}
           >
             <button
-              className={`absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full text-xl font-bold shadow-md ${
+              className={`absolute top-2 right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full text-2xl font-bold shadow-md transition-all hover:scale-110 ${
                 isDark
-                  ? 'bg-slate-700 text-white hover:bg-slate-600'
-                  : 'bg-white text-black hover:bg-gray-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
+                  ? 'bg-slate-700/90 text-white hover:bg-slate-600'
+                  : 'bg-white/90 text-black hover:bg-gray-200 dark:bg-slate-700/90 dark:text-white dark:hover:bg-slate-600'
               }`}
               onClick={closeModal}
               aria-label="Close modal"
             >
               &times;
             </button>
-            <div className="relative">
-              <Image
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                width={1200}
-                height={900}
-                className="max-h-[80vh] w-auto object-contain"
-              />
-              <div className="p-4 text-center">
-                <p
-                  className={`text-lg font-medium ${
-                    isDark ? 'text-white' : 'text-slate-900 dark:text-slate-200'
-                  }`}
-                >
-                  {selectedImage.caption}
-                </p>
+            <div className="flex h-[calc(100%-60px)] w-full items-center justify-center overflow-auto p-0 sm:p-4">
+              <div className="relative flex h-full w-full items-center justify-center">
+                <Image
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  width={1200}
+                  height={900}
+                  className="h-auto w-full object-contain sm:max-h-full sm:w-auto"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto',
+                  }}
+                  priority
+                />
               </div>
             </div>
-          </article>
-        </dialog>
+            {selectedImage.caption && (
+              <div
+                className={`absolute right-0 bottom-0 left-0 border-t p-3 text-center backdrop-blur-sm sm:relative sm:bg-transparent sm:p-4 ${
+                  isDark
+                    ? 'border-slate-700 bg-slate-800/90 text-white'
+                    : 'border-slate-200 bg-white/90 text-slate-900 dark:border-slate-700 dark:bg-slate-800/90 dark:text-slate-200'
+                }`}
+              >
+                <p className="text-base font-medium sm:text-lg">{selectedImage.caption}</p>
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </section>
   )

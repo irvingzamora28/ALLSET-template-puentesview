@@ -491,39 +491,49 @@ const GallerySection = ({ gallery }) => {
       {selectedImage && (
         <dialog
           open
-          className="bg-opacity-80 fixed inset-0 z-50 flex items-center justify-center bg-black p-4"
+          className="fixed inset-0 z-50 flex h-full w-full items-center justify-center bg-black/90 p-0 sm:p-4"
           onClick={closeModal}
           onKeyDown={(e) => e.key === 'Escape' && closeModal()}
           aria-modal="true"
           aria-labelledby="modal-title"
         >
-          {}
           <article
-            className="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg bg-white p-1 dark:bg-slate-800"
+            className="relative flex h-full w-full flex-col bg-white sm:max-h-[90vh] sm:max-w-[90vw] sm:rounded-lg dark:bg-slate-800"
             onClick={(e) => e.stopPropagation()}
             onKeyDown={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-black shadow-md hover:bg-gray-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600"
+              className="absolute top-2 right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-2xl font-bold text-black shadow-md transition-all hover:scale-110 hover:bg-gray-200 dark:bg-slate-700/90 dark:text-white dark:hover:bg-slate-600"
               onClick={closeModal}
               aria-label="Close modal"
             >
               &times;
             </button>
-            <div className="relative">
-              <Image
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                width={1200}
-                height={900}
-                className="max-h-[80vh] w-auto object-contain"
-              />
-              <div className="p-4 text-center">
-                <p className="text-lg font-medium text-slate-900 dark:text-slate-200">
+            <div className="flex h-[calc(100%-60px)] w-full items-center justify-center overflow-auto p-0 sm:p-4">
+              <div className="relative flex h-full w-full items-center justify-center">
+                <Image
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  width={1200}
+                  height={900}
+                  className="h-auto w-full object-contain sm:max-h-full sm:w-auto"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto',
+                  }}
+                  priority
+                />
+              </div>
+            </div>
+            {selectedImage.caption && (
+              <div className="absolute right-0 bottom-0 left-0 border-t border-slate-200 bg-white/90 p-3 text-center backdrop-blur-sm sm:relative sm:bg-white sm:p-4 dark:border-slate-700 dark:bg-slate-800/90 sm:dark:bg-slate-800">
+                <p className="text-base font-medium text-slate-900 sm:text-lg dark:text-slate-200">
                   {selectedImage.caption}
                 </p>
               </div>
-            </div>
+            )}
           </article>
         </dialog>
       )}

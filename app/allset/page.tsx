@@ -3,6 +3,7 @@ import { allBlogs } from 'contentlayer/generated'
 import { getSubscriptionCount } from '@/lib/subscription'
 import { RiPagesLine } from 'react-icons/ri'
 import { FiMail } from 'react-icons/fi'
+import ScreenshotTool from './screenshot-tool'
 
 export default async function AdminDashboard() {
   const postsCount = allCoreContent(sortPosts(allBlogs)).length
@@ -15,7 +16,7 @@ export default async function AdminDashboard() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <DashboardCard
           title="Total Posts"
-          value={allCoreContent(sortPosts(allBlogs)).length.toString()}
+          value={postsCount.toString()}
           description="3 new in the last week"
           icon={<RiPagesLine />}
         />
@@ -27,11 +28,8 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      <div className="mt-8 rounded-lg bg-slate-100 p-6 shadow-md dark:bg-gray-800">
-        <h2 className="mb-4 text-xl font-semibold">Recent Activity</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          This is a placeholder for recent activity. You can add your admin functionality here.
-        </p>
+      <div className="mt-8">
+        <ScreenshotTool />
       </div>
     </>
   )

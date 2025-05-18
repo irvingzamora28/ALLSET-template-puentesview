@@ -76,19 +76,24 @@
     "description": "Mira en tiempo real la fila en los puentes",
     "images": [
       {
-        "src": "/static/images/custom/santafe.png",
-        "alt": "Puente Santa Fe",
-        "caption": "Puente Santa Fe"
+        "src": "/static/images/custom/santafe-sur.png",
+        "alt": "Puente Santa Fe Sur",
+        "caption": "Puente Santa Fe Sur"
       },
       {
-        "src": "/static/images/custom/cordova.png",
-        "alt": "Puente Zaragoza",
-        "caption": "Puente Zaragoza"
+        "src": "/static/images/custom/santafe-norte.png",
+        "alt": "Puente Santa Fe Norte",
+        "caption": "Puente Santa Fe Norte"
       },
       {
-        "src": "/static/images/custom/cordova.png",
-        "alt": "Puente Cordova",
-        "caption": "Puente Cordova"
+        "src": "/static/images/custom/cordova-norte.png",
+        "alt": "Puente Cordova Norte",
+        "caption": "Puente Cordova Norte"
+      },
+      {
+        "src": "/static/images/custom/cordova-sur.png",
+        "alt": "Puente Cordova Sur",
+        "caption": "Puente Cordova Sur"
       }
     ]
   },

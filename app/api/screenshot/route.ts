@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { url, name } = validatedData
-  const scriptPath = path.join(process.cwd(), 'scripts', 'take-screenshot.mjs')
+  const scriptPath = path.join(process.cwd(), 'scripts', 'take-screenshot.cjs')
   const outputDir = path.join(process.cwd(), 'static', 'images', 'custom')
 
   try {

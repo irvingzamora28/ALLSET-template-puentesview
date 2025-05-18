@@ -11,30 +11,32 @@
       "link": "#features"
     }
   },
-  "featureTitle": "¿Cómo te ayuda PuentesView?",
-  "featureDescription": "PuentesView te ofrece la información que necesitas para cruzar la frontera de manera eficiente.",
-  "features": [
-    {
-      "title": "Alertas cada 15 minutos",
-      "description": "Recibe actualizaciones cada 15 minutos directamente en tu correo electrónico durante una hora.",
-      "icon": "FiClock"
-    },
-    {
-      "title": "Imágenes en tiempo real",
-      "description": "Visualiza las filas de los principales puentes fronterizos con las imagenes actualizadas.",
-      "icon": "FiEye"
-    },
-    {
-      "title": "Fácil de usar",
-      "description": "Recibe las alertas directamente en tu correo, sin complicaciones.",
-      "icon": "FiMail"
-    },
-    {
-      "title": "Puentes clave a tu alcance",
-      "description": "Cobertura de los puentes Zaragoza, Santa Fe y Cordova.",
-      "icon": "FiMapPin"
-    }
-  ],
+  "features": {
+    "title": "¿Cómo te ayuda PuentesView?",
+    "description": "PuentesView te ofrece la información que necesitas para cruzar la frontera de manera eficiente.",
+    "items": [
+      {
+        "title": "Alertas cada 15 minutos",
+        "description": "Recibe actualizaciones cada 15 minutos directamente en tu correo electrónico durante una hora.",
+        "icon": "FiClock"
+      },
+      {
+        "title": "Imágenes en tiempo real",
+        "description": "Visualiza las filas de los principales puentes fronterizos con las imagenes actualizadas.",
+        "icon": "FiEye"
+      },
+      {
+        "title": "Fácil de usar",
+        "description": "Recibe las alertas directamente en tu correo, sin complicaciones.",
+        "icon": "FiMail"
+      },
+      {
+        "title": "Puentes clave a tu alcance",
+        "description": "Cobertura de los puentes Zaragoza, Santa Fe y Cordova.",
+        "icon": "FiMapPin"
+      }
+    ]
+  },
   "cta": {
     "title": "¡Deja de perder tiempo en la fila!",
     "description": "Comienza a recibir alertas a tu correo durante una hora cada 15 minutos y descubre la diferencia.",

@@ -20,6 +20,7 @@ const SCREENSHOT_TARGETS: ScreenshotTarget[] = [
 
 export default function ScreenshotTool() {
   const [isLoading, setIsLoading] = useState(false)
+  const [isAutoRefresh, setIsAutoRefresh] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [screenshots, setScreenshots] = useState<
     Record<string, { url: string; imageUrl: string | undefined }>
@@ -60,24 +61,24 @@ export default function ScreenshotTool() {
     }
   }, [handleTakeScreenshot])
 
-  // Auto-refresh screenshots every 3 minutes
+  // Handle auto-refresh effect
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Take initial screenshots
-      handleTakeAllScreenshots()
+    if (typeof window === 'undefined' || !isAutoRefresh) return
 
-      // Set up interval for auto-refresh
-      const intervalId = setInterval(
-        () => {
-          handleTakeAllScreenshots()
-        },
-        3 * 60 * 1000
-      ) // 3 minutes
+    // Take initial screenshot immediately when auto-refresh is turned on
+    handleTakeAllScreenshots()
 
-      // Clean up interval on component unmount
-      return () => clearInterval(intervalId)
-    }
-  }, [handleTakeAllScreenshots])
+    // Set up interval for auto-refresh
+    const intervalId = setInterval(handleTakeAllScreenshots, 3000)
+
+    // Clean up interval when component unmounts or auto-refresh is turned off
+    return () => clearInterval(intervalId)
+  }, [isAutoRefresh, handleTakeAllScreenshots])
+
+  // Toggle auto-refresh
+  const toggleAutoRefresh = () => {
+    setIsAutoRefresh((prev) => !prev)
+  }
 
   return (
     <div className="mt-8 rounded-lg bg-slate-100 p-6 shadow-md dark:bg-gray-800">
@@ -99,6 +100,16 @@ export default function ScreenshotTool() {
               <RiCameraLine className="mr-2" />
             )}
             {isLoading ? 'Taking Screenshots...' : 'Take All Screenshots'}
+          </button>
+          <button
+            onClick={toggleAutoRefresh}
+            className={`inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm ${
+              isAutoRefresh
+                ? 'bg-red-600 text-white hover:bg-red-700'
+                : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'
+            } focus:ring-primary-500 focus:ring-2 focus:ring-offset-2 focus:outline-none`}
+          >
+            {isAutoRefresh ? 'Stop Auto-Refresh' : 'Start Auto-Refresh'}
           </button>
         </div>
       </div>
